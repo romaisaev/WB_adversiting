@@ -11,6 +11,24 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var Category_button_ui: UIButton!
     
+    func callAPI(){
+        guard let url = URL(string: "https://suppliers-stats.wildberries.ru/api/v1/supplier/sales?dateFrom=2022-09-04&flag=1&key=MWMzOWZhNDgtNTNiMS00ZDQ3LWFmMjMtNTFkYWUxNTBlZDNh") else{
+            return
+        }
+
+
+        let task = URLSession.shared.dataTask(with: url){
+            data, response, error in
+            
+            if let data = data, let string = String(data: data, encoding: .utf8){
+                print(string)
+            }
+        }
+
+        task.resume()
+    }
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
@@ -25,6 +43,7 @@ class ViewController: UIViewController {
    
     private lazy var first = UIAction(title: "first", image: UIImage(systemName: "pencil.circle"), attributes: [], state: .off) {action in
         print ("first")
+        self.callAPI()
     }
     private lazy var second = UIAction(title: "second", image: UIImage(systemName: "pencil.circle"), attributes: [], state: .off) {action in
         print ("second")
